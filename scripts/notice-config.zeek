@@ -10,7 +10,7 @@ module Notice;
 export {
 	## Supported notice actions, note that email actions aren't supported because Sam hates email
     ## Existence of IGNORE will trump all other actions and the notice will not be logged
-	type NC_actions: enum { LOG, IGNORE, BHR, ALARM, PAGE };
+	type NC_actions: enum { LOGG, IGNORE, BHR, ALARM, PAGE };
 
 	## Notice Config record type
 	type NC_Info: record {
@@ -21,7 +21,7 @@ export {
 		## The notice type
 		note: set[Notice::Type] &optional;
 		## Set of action to take for this notice
-		action: set[NC_actions] &default=set(LOG);
+		action: set[NC_actions] &default=set(LOGG);
 	};
 
 	## Vector of Notice Configuration policies
@@ -127,7 +127,7 @@ function process_notice(n: Notice::Info): set[Notice::Action]{
 hook Notice::policy(n: Notice::Info) &priority=5 {
 
 ##! why doesn't this syntax work?  []'s instead of NC_Into()
-##!	notice_cfg += [$note=Notice::Debug_Notice2, $action=set(LOG, PAGE)];
+##!	notice_cfg += [$note=Notice::Debug_Notice2, $action=set(LOGG, PAGE)];
 
 	print("Notice config");
 	local n_actions: set[Notice::Action];
